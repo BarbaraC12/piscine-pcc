@@ -2,7 +2,7 @@ import sys
 args = sys.argv
 
 
-def building(text: str):
+def count(text: str):
     """ Building
     This fonction take a single string and displays the sums of its:
      - Uppercase,
@@ -55,7 +55,7 @@ def main():
         if la > 2:
             raise AssertionError("more than one argument is provided")
         else:
-            return building(args[1]) if la == 2 else building(prompt())
+            return count(args[1]) if la == 2 else count(prompt())
         
     except AssertionError as err:
         print(AssertionError.__name__ + ":", err)

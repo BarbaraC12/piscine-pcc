@@ -1,45 +1,43 @@
 import sys
 import time
-from math import floor
+import shutil
 
 
-class ProgressBar:
-    """
-    This class allows you to make easily a progress bar.
-    """
-    def __init__(self, steps, maxbar=50):
-        if steps <= 0 or maxbar <= 0 or maxbar > 100:
-            raise ValueError
-        self.steps = steps
-        self.maxbar = maxbar
-        self.perc = 0
-        self._completed_steps = 0
-        self.status = 0
-        self.update()
-
-    def update(self, increase=True):
-        if increase:
-            self._completed_steps += 1
-        self.perc = floor(self._completed_steps / self.steps * 100)
-        if self._completed_steps > self.steps:
-            self._completed_steps = self.steps
-        steps_bar = floor(self.perc / 100 * self.maxbar)
-        if steps_bar == 0:
-            visual_bar = self.maxbar * ' '
-        else:
-            visual_bar = (steps_bar - 1) * '-' + '>' + (self.maxbar - steps_bar) * ' '
-            self.status = int(self.maxbar * self.perc / 100)
+def truncate(n, decimals=0):
+    multiplier = 10 ** decimals
+    return int(n * multiplier) / multiplier
 
 
-        sys.stdout.write(f"\r{str(self.perc)} %\t|[ {visual_bar} ]| {self.status}/{self.maxbar}")
+def ft_tqdm(lst: range) -> None:
+    total = len(lst)
+    start_time = time.time()
+    ecriture = "...%|| .../... [....<.... secs]'"
+    def get_terminal_width():
+        return shutil.get_terminal_size().columns
+
+    def print_bar(it):
+        percent = ("{0:.0f}").format(100 * (it / float(total)))
+        fill_len = int(length * it // total)
+        bar = '█' * fill_len + '-' * (length - fill_len)
+
+        elapsed_time = time.time() - start_time
+        t_remain = round((elapsed_time / it if it else 0) * it, 2)
+        eta = round((elapsed_time / it) * (total - it), 2)
+        trunc = ("{0:.0f}").format(truncate(it, -1))
+        ecriture = f'\r{percent}%|| {trunc}/{total} [{t_remain}<{eta} secs]'
+        sys.stdout.write(f'\r{percent}%|{bar}| {trunc}/{total} [{t_remain}<{eta} secs]')
         sys.stdout.flush()
 
+    length = get_terminal_width() - len(ecriture)
 
-if __name__ == '__main__':
-    bar = ProgressBar(50, 100)
+    for i, _ in enumerate(lst, 1):
+        percent = ("{0:.1f}").format(100 * (i / float(total)))
+        fill_len = int(length * i // total)
+        bar = '█' * fill_len + '-' * (length - fill_len)
 
-    i = 0
-    while bar.perc != 100:
-        bar.update()
-        time.sleep(0.5)
-        i += 1
+        print_bar(i)
+
+        yield _
+
+    # sys.stdout.write('\n')
+    sys.stdout.flush()
