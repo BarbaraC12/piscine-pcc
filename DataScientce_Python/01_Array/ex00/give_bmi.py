@@ -1,6 +1,8 @@
-def give_bmi(
-        height: list[int | float],
-        weight: list[int | float]) -> list[int | float]:
+from typing import List, Union
+
+
+# def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
+def give_bmi(height: List[Union[int, float]], weight: List[Union[int, float]]) -> List[Union[int, float]]:
     """
     Calcutator of BMI based on two given list (BMI = IMC)
 
@@ -31,7 +33,8 @@ def give_bmi(
         print(Exception.__name__ + ":", err)
 
 
-def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
+# def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
+def apply_limit(bmi: List[Union[int, float]], limit: int) -> List[bool]:
     """
     Try if BMI is above the limit
 
@@ -54,4 +57,3 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
         return exceed
     except Exception as err:
         print(Exception.__name__ + ":", err)
-
