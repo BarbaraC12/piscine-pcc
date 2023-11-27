@@ -1,8 +1,10 @@
 from typing import List, Union
 
 
-# def give_bmi(height: list[int | float], weight: list[int | float]) -> list[int | float]:
-def give_bmi(height: List[Union[int, float]], weight: List[Union[int, float]]) -> List[Union[int, float]]:
+def give_bmi(
+    height: list[int | float],
+    weight: list[int | float]
+            ) -> list[int | float]:
     """
     Calcutator of BMI based on two given list (BMI = IMC)
 
@@ -20,8 +22,8 @@ def give_bmi(height: List[Union[int, float]], weight: List[Union[int, float]]) -
         if len_h != len_w:
             raise ValueError("list must have the same lenght")
         for h, w in zip(height, weight):
-            if not isinstance(h, (int, float))\
-            or not isinstance(w, (int, float)):
+            if not (isinstance(h, (int, float)) or
+                    isinstance(w, (int, float))):
                 raise TypeError("list must be int or float")
             if h < 0 or w < 0:
                 raise ValueError("value can't be negative")
