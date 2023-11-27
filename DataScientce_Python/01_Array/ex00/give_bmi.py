@@ -12,7 +12,7 @@ def give_bmi(height: List[Union[int, float]], weight: List[Union[int, float]]) -
 
     Returns:
     bmi (list): list of BMI (bmi = (weight / height^2))
-   """
+    """
     len_h = len(height)
     len_w = len(weight)
     bmi_list = []
@@ -21,7 +21,7 @@ def give_bmi(height: List[Union[int, float]], weight: List[Union[int, float]]) -
             raise ValueError("list must have the same lenght")
         for h, w in zip(height, weight):
             if not isinstance(h, (int, float))\
-             or not isinstance(w, (int, float)):
+            or not isinstance(w, (int, float)):
                 raise TypeError("list must be int or float")
             if h < 0 or w < 0:
                 raise ValueError("value can't be negative")
@@ -44,7 +44,7 @@ def apply_limit(bmi: List[Union[int, float]], limit: int) -> List[bool]:
 
     Returns:
     exceed (list): list boolean True if above the limite
-   """
+    """
     exceed = []
     try:
         for n in bmi:
