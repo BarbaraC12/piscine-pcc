@@ -1,0 +1,5 @@
+clipboard==0.0.4
+numpy==1.26.2
+pyperclip==1.8.2
+pyvenv==0.2.2
+termcolor==1.1.0
