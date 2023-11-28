@@ -24,11 +24,10 @@ def ft_load(path: str) -> list:
                     for b in range(h):
                         pixels.append(img.getpixel((a, b)))
                 return [pixels]
-            raise AssertionError("File not found:", path)
-        raise AssertionError("Format supported: JPG and JPEG")
-    except AssertionError as err:
-        print(AssertionError.__name__ + ":", err)
-        return ""
+            raise ImportError(f"File not found '{path}'")
+        raise TypeError("Format supported: JPG and JPEG")
+    except Exception as err:
+        print(Exception.__name__ + ":", err)
 
 
 print(ft_load("landscape.jpg"))
