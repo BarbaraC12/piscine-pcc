@@ -14,4 +14,4 @@ Cmd utils for use the Virtual Environment (venv):
 - Use venv: `source here/bin/activate`
 - Quit venv: `deactivate`
 - Freeze venv: `pip freeze > requierements.txt`
-- Vnstall venv: `pip install -r requierement.txt`
+- Install venv: `pip install -r requierement.txt`

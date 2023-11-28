@@ -20,11 +20,11 @@ def give_bmi(
         np_w = np.array(w)
         if np_h.shape != np_w.shape:
             raise ValueError("list must have the same lenght")
-        valid_h = np.all(np.greater_equal(np_h, np.zeros(np_h.shape))
-                         & np.isreal(np_h))
-        valid_w = np.all(np.greater_equal(np_w, np.zeros(np_w.shape))
-                         & np.isreal(np_w))
-        if not valid_h or not valid_w:
+        vali_h = np.all(np.greater_equal(np_h, np.zeros(np_h.shape))
+                        & np.isreal(np_h))
+        vali_w = np.all(np.greater_equal(np_w, np.zeros(np_w.shape))
+                        & np.isreal(np_w))
+        if not vali_h or not vali_w:
             raise TypeError("list must be positive int or float")
         np_bmi = (np_w / (np_h ** 2))
         return list(np_bmi)
@@ -33,7 +33,10 @@ def give_bmi(
         print(Exception.__name__ + ":", err)
 
 
-def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
+def apply_limit(
+    bmi: list[int | float],
+    limit: int
+                ) -> list[bool]:
     """
     Try if BMI is above the limit
 
@@ -44,15 +47,14 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
     Returns:
     exceed (list): list boolean True if above the limit
     """
-    exceed = []
+    np_bmi = np.array(bmi)
     try:
-        for n in bmi:
-            if not isinstance(n, (int, float))\
-             or not isinstance(limit, (int)):
-                raise TypeError("list must be int or float")
-            if n < 0 or limit < 0:
-                raise ValueError("value can't be negative")
-            exceed.append(n > limit)
-        return exceed
+        va_bmi = np.all(np.greater_equal(np_bmi, np.zeros(np_bmi.shape))
+                        & np.isreal(np_bmi))
+        if not va_bmi:
+            raise TypeError("list must be positive int or float")
+        exceed = np_bmi <= limit
+        return list(exceed)
+
     except Exception as err:
         print(Exception.__name__ + ":", err)
