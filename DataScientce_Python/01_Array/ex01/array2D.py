@@ -11,23 +11,23 @@ def slice_me(family: list, start: int, end: int) -> list:
     end (int): after this value trunc
 
     Returns:
-    bmi (list): list of BMI (bmi = (weight / height^2))
+    trunc (list): list truncated between star an end value
     """
     try:
-        if isinstance(family, list) and isinstance(start, int)\
-         and isinstance(end, int):
-            print(np.array(family).shape)  # print the shape of an np array
-            print(np.array(family[start: end+1]).shape)  # from start to end
-            return np.array(family[start: end+1]).tolist
-        raise AssertionError(
-            "Parameters must be in this order a list and two intergers")
+        try:
+            np_family = np.array(family)
+        except ValueError:
+            raise AssertionError(
+                "Array dimension must have the same shape")
+        valid_fam = np.all(np.isreal(np_family))
+        valid_range = isinstance(start, int) and isinstance(end, int)
+        if not valid_fam or not valid_range:
+            raise TypeError(
+                "Parameters must be a list of real and two integers")
+        print(f"My shape are: {np_family.shape}")
+        np_trunc = np_family[start: end]  # truncated np_list
+        print(f"My new shape is: {np_trunc.shape}")
+        return (np_trunc.tolist())
 
-    except AssertionError as err:
-        print(AssertionError.__name__ + ":", err)
-
-
-fam = [[1.80, 78.4], [2.15, 102.7], [2.10, 98.5], [1.88, 75.2]]
-print(slice_me(fam, 0, 2))
-print(slice_me(fam, 1, -2))
-print(slice_me(fam, 1, 78))
-print(slice_me(fam, "1", -2))
+    except Exception as err:
+        print(Exception.__name__ + ":", err)

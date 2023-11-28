@@ -2,10 +2,10 @@ from sys import argv
 
 
 def translate(lang: dict, text: str) -> str:
-    """Translate text with given dictionnary
+    """Translate text with given dictionary
 
     Parameters:
-    lang (dict): the dictionnary as reference
+    lang (dict): the dictionary as reference
     text (str): string to translate
 
     Returns:
