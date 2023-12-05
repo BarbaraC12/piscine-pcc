@@ -1,33 +1,36 @@
 from PIL import Image
 import os
+import numpy as np
 
 
-def ft_tqdm(path: str) -> list:
+def ft_load(path: str) -> np.array:
     """
-    Fonction that load and analyse an image
+    Function that load and analyse an image
     print its format and its pixels content in RBG format [r, b, g]
 
     Parameters:
     path (str): the path to the image
 
     Returns:
-    load (str)
+    np.array: array of RGB colors
     """
     try:
-        if path.lower().endswith((".jpg", ".jpeg")):
-            if os.path.exists(path):
-                img = Image.open(path)
+        pre, ext = os.path.splitext(path)
+        if ext.lower() not in (".jpg", ".jpeg"):
+            raise TypeError(f"Format not supported: {ext}")
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"File not found {path}")
+        else:
+            with Image.open(path) as img:
                 w, h = img.size
                 print(f"The shape of Image is: {h}, {w}, {img.layers}")
-                pixels = []
-                for a in range(w):
-                    for b in range(h):
-                        pixels.append(img.getpixel((a, b)))
-                img.show()
-                img.close()
-                return pixels  # i can't use numpy on my laptop :/
-            raise AssertionError("File not found:", path)
-        raise AssertionError("Format supported: JPG and JPEG")
-    except AssertionError as err:
-        print(AssertionError.__name__ + ":", err)
-        return ""
+                pixels = np.array(
+                    [img.getpixel((a, b)) for a in range(w) for b in range(h)])
+            return pixels
+    except Exception as err:
+        print(Exception.__name__ + ":", err)
+        return np.array([])
+
+
+result = ft_load("landscape.jpg")
+print((result))
