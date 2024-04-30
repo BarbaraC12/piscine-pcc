@@ -1,10 +1,6 @@
-#include <iostream>
+#include "Bank.hpp"
 
 class Bank {
-private:
-    int liquidity;
-    std::vector<Account> clientAccounts;
-
     bool isUniqueId(int id) const {
         for (const Account &account : clientAccounts) {
             if (account.getId() == id) {
@@ -14,7 +10,6 @@ private:
         return true;
     }
 
-public:
     Bank() : liquidity(0) {}
 
     void deposit(int accountId, int amount) {
